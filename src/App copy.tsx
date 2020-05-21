@@ -20,9 +20,9 @@ const Header = styled.header`
 
 const Title = styled.h1`
   color: fuchsia;
-`
 
-const App: React.FC = () => {
+`
+function App() {
   return (
     <Container className="App">
       <Header className="App-header">
