@@ -33,10 +33,10 @@ type Action =
 
 interface Todo {
   id: string;
-  index: number;
   title: string;
   task: string;
   completed: boolean;
+  date: moment.Moment;
 }
 
 type State = Array<object>;
