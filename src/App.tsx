@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import styled from "styled-components";
+import moment from "moment";
 import { TodoStateContext } from "./TodoStateContext";
 import { TodoDispatchContext } from "./TodoDispatchContext";
 
@@ -8,10 +9,10 @@ import TodoViewer from "./TodoViewer";
 
 const Container = styled.div`
   width: 100%;
-  background: lightgrey;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 const Header = styled.header`
   width: 100%;
@@ -25,13 +26,6 @@ const Title = styled.h1`
   color: fuchsia;
 `;
 
-type Action =
-  | { type: "INIT"; arr: object[] }
-  | { type: "ADD"; todo: Todo }
-  | { type: "COMPLETE"; id: string }
-  | { type: "DELETE"; id: string }
-  | { type: "UPDATE"; todo: Todo };
-
 interface Todo {
   id: string;
   task: string;
@@ -39,36 +33,51 @@ interface Todo {
   date: moment.Moment;
 }
 
-type State = Array<object>;
+type Action =
+  | { type: "INIT"; arr: Todo[] }
+  | { type: "ADD"; todo: Todo }
+  | { type: "COMPLETE"; id: string; isCompleted: boolean }
+  | { type: "DELETE"; id: string }
+  | { type: "UPDATE"; todo: Todo };
+
+type State = Todo[];
 
 function todoReducer(state: State, action: Action) {
-  switch (action.type) {
-    case "INIT":
-      return [...action.arr];
-    case "ADD":
-      return state.concat(action.todo);
-    case "UPDATE":
-      return state;
-    case "COMPLETE":
-      return state;
-    case "DELETE":
-      return state;
-    default:
-      return state;
+  if(action.type === 'INIT'){
+    return [...action.arr];
+  } else if(action.type === 'ADD'){
+    return state.concat(action.todo);
+  }else if(action.type === 'UPDATE'){
+    return state;
+  }else if(action.type === 'COMPLETE'){
+    // Make a copy of current state
+    const updated = [...state]
+    // Find todo in arry
+    const updateIndex = updated.findIndex(todo => todo.id === action.id)
+    // Update completed for slected todo
+    updated[updateIndex].completed = action.isCompleted
+    return updated;
+  }else if(action.type === 'DELETE'){
+    return state;
+  }else {
+    return state
   }
 }
 
 const App: React.FC = () => {
-  const [todos, dispatch] = useReducer(todoReducer, []);
-
+  const initialTodoArr: Todo[] = []
+  const [todos, dispatch] = useReducer(todoReducer, initialTodoArr);
+  
   useEffect(() => {
+    // Check localstorage for todo list
     const arr = window.localStorage.getItem("nextodo");
-    arr
-      ? dispatch({ type: "INIT", arr: JSON.parse(arr) })
-      : window.localStorage.setItem("nextodo", JSON.stringify([]));
+    // If todo list exists dispatch else create empty todo list0
+    arr && dispatch({ type: "INIT", arr: JSON.parse(arr) })
+      // : window.localStorage.setItem("nextodo", JSON.stringify([]));
   }, []);
-
+  
   useEffect(() => {
+    // Update localstorage with todolist whenever the todolist changes
     const update = JSON.stringify(todos);
     window.localStorage.setItem("nextodo", update);
   }, [todos]);

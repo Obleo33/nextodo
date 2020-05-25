@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { TodoDispatchContext } from "./TodoDispatchContext";
@@ -6,13 +6,49 @@ import { ReactComponent as Up } from './assets/up.svg';
 import { ReactComponent as Top } from './assets/top.svg';
 import { ReactComponent as Down } from './assets/down.svg';
 import { ReactComponent as Bottom } from './assets/bottom.svg';
+import { log } from "util";
 
+interface cssProps {
+  isCompleted: boolean;
+}
+const Card = styled.div<cssProps>`
+  background-color: ${(props) => 
+    props.isCompleted && 'lightgrey'};
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px orange;
+  padding: 10px;
+`;
 
-const Card = styled.div``;
-const Header = styled.header``;
-const Title = styled.h2``;
-const Date = styled.p``;
-const Footer = styled.footer``;
+const Header = styled.header`
+  margin-left: 25px;
+`;
+
+const Completed = styled.input`
+  position: absolute;
+  top: 10;
+  left: 10;
+`
+
+const Title = styled.h2<cssProps>`
+  color: ${props => props.isCompleted && 'white'};
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 5px 3px 0;
+`;
+
+const Date = styled.p`
+  font-size: 12px;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 5px;
+`;
+
+const Footer = styled.footer`
+  display: flex;
+`;
+
 const SortContainer = styled.div``;
 
 const UpIcon = styled(Up)`
@@ -33,13 +69,15 @@ const DownIcon = styled(Down)`
 `
 
 const Button = styled.button`
-border: none;
-background: none;
+  border: none;
+  background: none;
   text-decoration: none;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
+  margin-right: 10px;
 `
 
 interface Props {
@@ -52,9 +90,13 @@ interface Props {
 }
 
 const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
+  const [isCompleted, setIsCompleted] = useState<boolean>(false)
   const dispatch = useContext(TodoDispatchContext);
-
   const dispatchArr = [...fullArr]
+
+  useEffect(() => {
+    setIsCompleted(completed)
+  }, [])
 
   const handleUp = () => {
     // Determine new index for todo 
@@ -88,12 +130,19 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
     dispatch({ type: 'INIT', arr: dispatchArr })
   }
 
+  const handleCompleted = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsCompleted(e.target.checked)
+    dispatch({type: 'COMPLETE', id, isCompleted: e.target.checked})
+  }
+
   return (
-    <Card>
+    <Card isCompleted={isCompleted}>
       <Header>
-        <Title>{task}</Title>
+        <Title isCompleted={isCompleted}>{task}</Title>
         <Date>{moment(date).format('llll')}</Date>
       </Header>
+      <Completed type="checkbox" checked={isCompleted} onChange={handleCompleted
+      } />
       <Footer>
         <Button onClick={handleUp}><UpIcon /></Button>
         <Button onClick={handleTop}><TopIcon /></Button>

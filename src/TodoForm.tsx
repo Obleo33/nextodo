@@ -5,13 +5,29 @@ import moment from "moment";
 
 const shortid = require("shortid");
 
-const Form = styled.form``;
+const FormContainer = styled.div`
+  width: 70%;
+  text-align: center;
+`
 
-const TodoInput = styled.input``;
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 
-const Submit = styled.button``;
+const TodoInput = styled.input`
+  width: 100%;
+`;
 
-const Error = styled.div``;
+const Submit = styled.button`
+  width: 150px;
+  margin-left: 20px;
+`;
+
+const Error = styled.div`
+  margin-top: 10px;
+`;
 
 interface Props {
   dispatch: () => void;
@@ -19,7 +35,6 @@ interface Props {
 
 const TodoForm = () => {
   const [task, setTask] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
 
   const dispatch = useContext(TodoDispatchContext);
@@ -30,9 +45,8 @@ const TodoForm = () => {
       const date = moment();
       dispatch({
         type: "ADD",
-        todo: { id: shortid.generate(), title, task, completed: false, date },
-      });
-      setTitle("");
+        todo: { id: shortid.generate(), task, completed: false, date },
+      })
       setTask("");
       setError(false);
     } else {
@@ -41,23 +55,24 @@ const TodoForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <TodoInput
-        type="text"
-        placeholder="Todo"
-        value={task}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-          setTask(e.target.value)
-        }
-      />
-      <Submit type="submit" onClick={handleSubmit}>Submit</Submit>
+    <FormContainer>
+      <Form onSubmit={handleSubmit}>
+        <TodoInput
+          type="text"
+          placeholder="Todo"
+          value={task}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+            setTask(e.target.value)
+          }
+        />
+        <Submit type="submit" onClick={handleSubmit}>Submit</Submit>
+      </Form>
       {error && (
         <Error>
-          {" "}
           Please enter a value for todo before submitting
         </Error>
       )}
-    </Form>
+    </FormContainer>
   );
 };
 
