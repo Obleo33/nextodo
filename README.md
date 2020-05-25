@@ -14,11 +14,11 @@ You will also see any lint errors in the console.
 
 ## Modules 
 
-TypeScript [link](https://www.npmjs.com/package/typescript)
-EsLint - AirBnB [link](https://www.npmjs.com/package/eslint-config-airbnb)
+typescript [link](https://www.npmjs.com/package/typescript)
+esint-config-airbnb [link](https://www.npmjs.com/package/eslint-config-airbnb)
 shortid [link](https://www.npmjs.com/package/shortid)
-Moment [link](https://www.npmjs.com/package/moment)
-Styled-Components [link](https://www.npmjs.com/package/styled-components)
+moment [link](https://www.npmjs.com/package/moment)
+styled-components [link](https://www.npmjs.com/package/styled-components)
 
 ## References
 
@@ -29,6 +29,8 @@ TypeScript
 [https://www.youtube.com/watch?v=Z5iWr6Srsj8]()
 
 
+## Next Steps
 
+Add express backend with PostgreSql
 
 
