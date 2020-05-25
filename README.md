@@ -31,6 +31,6 @@ TypeScript
 
 ## Next Steps
 
-Add express backend with PostgreSql
+Add express backend with PostgreSQL
 
 
