@@ -10,6 +10,7 @@ const Viewer = styled.div`
   align-items: center;
   flex-direction: column;
   width: 70%;
+  max-width: 700px;
   height: 80%;
   margin-bottom: 25px;
   `;

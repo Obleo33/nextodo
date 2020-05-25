@@ -6,12 +6,11 @@ import { TodoDispatchContext } from "./TodoDispatchContext";
 
 import { ReactComponent as Delete } from './assets/delete.svg';
 
-
-
 const SearchContainer = styled.div`
     display: flex;
-    align-items: center;
+    justify-content: center;
     margin-bottom: 10px;
+    width: 100%
 `
 
 const Search = styled.input`

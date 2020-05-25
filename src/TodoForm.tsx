@@ -7,6 +7,7 @@ const shortid = require("shortid");
 
 const FormContainer = styled.div`
   width: 70%;
+  max-width: 700px;
   text-align: center;
 `
 

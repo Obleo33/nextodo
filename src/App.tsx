@@ -24,6 +24,7 @@ const Header = styled.header`
 
 const Title = styled.h1`
   color: fuchsia;
+  font-size: 40px;
 `;
 
 interface Todo {
@@ -36,7 +37,6 @@ interface Todo {
 type Action =
   | { type: 'INIT'; arr: Todo[] }
   | { type: 'ADD'; todo: Todo }
-  | { type: 'SORT'; arr: Todo[] }
   | { type: 'DELETE'; id: string }
   | { type: 'UPDATE'; id: string, task: string; isCompleted: boolean };
 
@@ -69,13 +69,19 @@ function todoReducer(state: State, action: Action) {
     if(action.isCompleted !== undefined){
       updated[updateIndex].completed = action.isCompleted
     }
-    
+    // Update local storage
     updateLocalStorage(updated)
     return updated;
-  } else if (action.type === 'SORT') {
-    return state
   } else if (action.type === 'DELETE') {
-    return state;
+    // Duplicate state
+    const newArr = [...state]
+    // Locate todo 
+    const deleteIndex = newArr.findIndex(todo => todo.id === action.id)
+    // Remove to do from array
+    newArr.splice(deleteIndex, 1)
+    // Update locak storage
+    updateLocalStorage(newArr)
+    return newArr;
   } else {
     return state
   }

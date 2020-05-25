@@ -7,6 +7,7 @@ import { ReactComponent as Up } from './assets/up.svg';
 import { ReactComponent as Top } from './assets/top.svg';
 import { ReactComponent as Down } from './assets/down.svg';
 import { ReactComponent as Bottom } from './assets/bottom.svg';
+import { ReactComponent as Delete } from './assets/delete.svg';
 
 interface cssProps {
   isCompleted: boolean;
@@ -67,7 +68,10 @@ const DownIcon = styled(Down)`
   height: 15px;
   width: 15px;
 `
-
+const DeleteIcon = styled(Delete)`
+    height: 10px;
+    width: 10px;
+`
 const Button = styled.button`
   border: none;
   background: none;
@@ -80,6 +84,11 @@ const Button = styled.button`
   margin-right: 10px;
 `
 
+const DeleteContainer = styled.div`
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+`
 interface Props {
   id: string;
   task: string;
@@ -139,6 +148,10 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
     dispatch({ type: 'UPDATE', id, task: e.target.innerHTML })
   }
 
+  const handleDelete = () => {
+    dispatch({type: 'DELETE', id})
+  }
+
   return (
     <Card isCompleted={isCompleted}>
       <Header>
@@ -153,6 +166,7 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
         <Button onClick={handleBottom}><BottomIcon /></Button>
         <Button onClick={handleDown}><DownIcon /></Button>
       </Footer>
+      <DeleteContainer><Button onClick={handleDelete}><DeleteIcon/></Button></DeleteContainer>
     </Card>
   );
 };
