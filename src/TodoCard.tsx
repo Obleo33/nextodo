@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { TodoDispatchContext } from "./TodoDispatchContext";
+
 import { ReactComponent as Up } from './assets/up.svg';
 import { ReactComponent as Top } from './assets/top.svg';
 import { ReactComponent as Down } from './assets/down.svg';
@@ -11,7 +12,7 @@ interface cssProps {
   isCompleted: boolean;
 }
 const Card = styled.div<cssProps>`
-  background-color: ${(props) => 
+  background-color: ${(props) =>
     props.isCompleted && 'lightgrey'};
   position: relative;
   display: flex;
@@ -38,7 +39,7 @@ const Title = styled.h2<cssProps>`
 `;
 
 const Date = styled.p<cssProps>`
-    color: ${props => props.isCompleted && 'fuchsia'};
+  color: ${props => props.isCompleted && 'fuchsia'};
   font-size: 12px;
   font-weight: 300;
   margin: 0;
@@ -47,6 +48,7 @@ const Date = styled.p<cssProps>`
 
 const Footer = styled.footer`
   display: flex;
+  margin-right: 25px;
 `;
 
 const UpIcon = styled(Up)`
@@ -130,11 +132,11 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
 
   const handleCompleted = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsCompleted(e.target.checked)
-    dispatch({type: 'UPDATE', id, isCompleted: e.target.checked})
+    dispatch({ type: 'UPDATE', id, isCompleted: e.target.checked })
   }
 
-  const handleUpdate = (e:  React.FocusEvent<HTMLInputElement>) => {
-    dispatch({type: 'UPDATE', id, task: e.target.innerHTML})
+  const handleUpdate = (e: React.FocusEvent<HTMLInputElement>) => {
+    dispatch({ type: 'UPDATE', id, task: e.target.innerHTML })
   }
 
   return (
