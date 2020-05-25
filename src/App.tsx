@@ -34,32 +34,53 @@ interface Todo {
 }
 
 type Action =
-  | { type: "INIT"; arr: Todo[] }
-  | { type: "ADD"; todo: Todo }
-  | { type: "COMPLETE"; id: string; isCompleted: boolean }
-  | { type: "DELETE"; id: string }
-  | { type: "UPDATE"; todo: Todo };
+  | { type: 'INIT'; arr: Todo[] }
+  | { type: 'ADD'; todo: Todo }
+  | { type: 'SORT'; arr: Todo[] }
+  | { type: 'COMPLETE'; id: string; isCompleted: boolean }
+  | { type: 'DELETE'; id: string }
+  | { type: 'UPDATE'; id: string, task: string };
 
 type State = Todo[];
 
+const updateLocalStorage = (todos: Todo[]) => {
+  // Update localstorage with todos
+  const update = JSON.stringify(todos);
+  window.localStorage.setItem("nextodo", update);
+}
+
 function todoReducer(state: State, action: Action) {
-  if(action.type === 'INIT'){
-    return [...action.arr];
-  } else if(action.type === 'ADD'){
-    return state.concat(action.todo);
-  }else if(action.type === 'UPDATE'){
-    return state;
-  }else if(action.type === 'COMPLETE'){
+  if (action.type === 'INIT') {
+    const todoArr = [...action.arr]
+    updateLocalStorage(todoArr)
+    return todoArr;
+  } else if (action.type === 'ADD') {
+    const newArr = state.concat(action.todo)
+    updateLocalStorage(newArr)
+    return newArr;
+  } else if (action.type === 'UPDATE') {
+    // Make a copy of current state
+    const updated = [...state]
+    // Find todo in arry
+    const updateIndex = updated.findIndex(todo => todo.id === action.id)
+    // Update completed for slected todo
+    updated[updateIndex].task = action.task
+    updateLocalStorage(updated)
+    return updated;
+  } else if (action.type === 'SORT') {
+    return state
+  } else if (action.type === 'COMPLETE') {
     // Make a copy of current state
     const updated = [...state]
     // Find todo in arry
     const updateIndex = updated.findIndex(todo => todo.id === action.id)
     // Update completed for slected todo
     updated[updateIndex].completed = action.isCompleted
+    updateLocalStorage(updated)
     return updated;
-  }else if(action.type === 'DELETE'){
+  } else if (action.type === 'DELETE') {
     return state;
-  }else {
+  } else {
     return state
   }
 }
@@ -67,20 +88,14 @@ function todoReducer(state: State, action: Action) {
 const App: React.FC = () => {
   const initialTodoArr: Todo[] = []
   const [todos, dispatch] = useReducer(todoReducer, initialTodoArr);
-  
+
   useEffect(() => {
     // Check localstorage for todo list
     const arr = window.localStorage.getItem("nextodo");
     // If todo list exists dispatch else create empty todo list
     arr && dispatch({ type: "INIT", arr: JSON.parse(arr) })
-      // : window.localStorage.setItem("nextodo", JSON.stringify([]));
+    // : window.localStorage.setItem("nextodo", JSON.stringify([]));
   }, []);
-  
-  useEffect(() => {
-    // Update localstorage with todolist whenever the todolist changes
-    const update = JSON.stringify(todos);
-    window.localStorage.setItem("nextodo", update);
-  }, [todos]);
 
   return (
     <Container className="App">

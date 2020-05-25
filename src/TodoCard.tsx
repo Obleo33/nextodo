@@ -133,13 +133,17 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
     dispatch({type: 'COMPLETE', id, isCompleted: e.target.checked})
   }
 
+  const handleUpdate = (e:  React.FocusEvent<HTMLInputElement>) => {
+    dispatch({type: 'UPDATE', id, task: e.target.innerHTML})
+  }
+
   return (
     <Card isCompleted={isCompleted}>
       <Header>
-        <Title isCompleted={isCompleted}>{task}</Title>
+        <Title isCompleted={isCompleted} contentEditable='true' onBlur={handleUpdate}>{task}</Title>
         <Date isCompleted={isCompleted}>{moment(date).format('llll')}</Date>
       </Header>
-      <Completed type="checkbox" checked={isCompleted} onChange={handleCompleted
+      <Completed type="checkbox" checked={isCompleted} onChange={(handleCompleted)
       } />
       <Footer>
         <Button onClick={handleUp}><UpIcon /></Button>
