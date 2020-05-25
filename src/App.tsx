@@ -71,7 +71,7 @@ const App: React.FC = () => {
   useEffect(() => {
     // Check localstorage for todo list
     const arr = window.localStorage.getItem("nextodo");
-    // If todo list exists dispatch else create empty todo list0
+    // If todo list exists dispatch else create empty todo list
     arr && dispatch({ type: "INIT", arr: JSON.parse(arr) })
       // : window.localStorage.setItem("nextodo", JSON.stringify([]));
   }, []);

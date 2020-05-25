@@ -6,7 +6,6 @@ import { ReactComponent as Up } from './assets/up.svg';
 import { ReactComponent as Top } from './assets/top.svg';
 import { ReactComponent as Down } from './assets/down.svg';
 import { ReactComponent as Bottom } from './assets/bottom.svg';
-import { log } from "util";
 
 interface cssProps {
   isCompleted: boolean;
@@ -38,7 +37,8 @@ const Title = styled.h2<cssProps>`
   margin: 0 5px 3px 0;
 `;
 
-const Date = styled.p`
+const Date = styled.p<cssProps>`
+    color: ${props => props.isCompleted && 'fuchsia'};
   font-size: 12px;
   font-weight: 300;
   margin: 0;
@@ -48,8 +48,6 @@ const Date = styled.p`
 const Footer = styled.footer`
   display: flex;
 `;
-
-const SortContainer = styled.div``;
 
 const UpIcon = styled(Up)`
   height: 15px;
@@ -96,7 +94,7 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
 
   useEffect(() => {
     setIsCompleted(completed)
-  }, [])
+  }, [completed])
 
   const handleUp = () => {
     // Determine new index for todo 
@@ -139,7 +137,7 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
     <Card isCompleted={isCompleted}>
       <Header>
         <Title isCompleted={isCompleted}>{task}</Title>
-        <Date>{moment(date).format('llll')}</Date>
+        <Date isCompleted={isCompleted}>{moment(date).format('llll')}</Date>
       </Header>
       <Completed type="checkbox" checked={isCompleted} onChange={handleCompleted
       } />
