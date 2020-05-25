@@ -1,9 +1,10 @@
 import React, { useEffect, useReducer } from "react";
 import styled from "styled-components";
-import {TodoStateContext} from "./TodoStateContext";
-import {TodoDispatchContext} from "./TodoDispatchContext";
+import { TodoStateContext } from "./TodoStateContext";
+import { TodoDispatchContext } from "./TodoDispatchContext";
 
 import TodoForm from "./TodoForm";
+import TodoViewer from "./TodoViewer";
 
 const Container = styled.div`
   width: 100%;
@@ -33,7 +34,6 @@ type Action =
 
 interface Todo {
   id: string;
-  title: string;
   task: string;
   completed: boolean;
   date: moment.Moment;
@@ -44,7 +44,7 @@ type State = Array<object>;
 function todoReducer(state: State, action: Action) {
   switch (action.type) {
     case "INIT":
-      return [...state, ...action.arr];
+      return [...action.arr];
     case "ADD":
       return state.concat(action.todo);
     case "UPDATE":
@@ -70,8 +70,8 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const update = JSON.stringify(todos);
-    window.localStorage.setItem('nextodo', update)
-  },[todos])
+    window.localStorage.setItem("nextodo", update);
+  }, [todos]);
 
   return (
     <Container className="App">
@@ -80,6 +80,7 @@ const App: React.FC = () => {
       </Header>
       <TodoDispatchContext.Provider value={dispatch}>
         <TodoStateContext.Provider value={todos}>
+          <TodoViewer />
           <TodoForm />
         </TodoStateContext.Provider>
       </TodoDispatchContext.Provider>

@@ -1,0 +1,16 @@
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-705.000000, -697.000000)">
+            <g id="Group" transform="translate(730.000000, 722.000000) rotate(-180.000000) translate(-730.000000, -722.000000) translate(705.000000, 697.000000)">
+                <g id="Group-9">
+                    <circle id="Oval" fill="#000000" cx="25" cy="25" r="25"></circle>
+                    <path d="M25,16 L40,37 L34.286,37 L25,24 L15.714,37 L10,37 L25,16 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                    <rect id="Rectangle" fill="#FFFFFF" x="12" y="10" width="26" height="3"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
