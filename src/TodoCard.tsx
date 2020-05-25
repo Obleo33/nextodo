@@ -130,7 +130,7 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
 
   const handleCompleted = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsCompleted(e.target.checked)
-    dispatch({type: 'COMPLETE', id, isCompleted: e.target.checked})
+    dispatch({type: 'UPDATE', id, isCompleted: e.target.checked})
   }
 
   const handleUpdate = (e:  React.FocusEvent<HTMLInputElement>) => {

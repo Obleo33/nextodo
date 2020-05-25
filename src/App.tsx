@@ -37,9 +37,8 @@ type Action =
   | { type: 'INIT'; arr: Todo[] }
   | { type: 'ADD'; todo: Todo }
   | { type: 'SORT'; arr: Todo[] }
-  | { type: 'COMPLETE'; id: string; isCompleted: boolean }
   | { type: 'DELETE'; id: string }
-  | { type: 'UPDATE'; id: string, task: string };
+  | { type: 'UPDATE'; id: string, task: string; isCompleted: boolean };
 
 type State = Todo[];
 
@@ -64,20 +63,17 @@ function todoReducer(state: State, action: Action) {
     // Find todo in arry
     const updateIndex = updated.findIndex(todo => todo.id === action.id)
     // Update completed for slected todo
-    updated[updateIndex].task = action.task
+    if(action.task !== undefined){
+      updated[updateIndex].task = action.task
+    }
+    if(action.isCompleted !== undefined){
+      updated[updateIndex].completed = action.isCompleted
+    }
+    
     updateLocalStorage(updated)
     return updated;
   } else if (action.type === 'SORT') {
     return state
-  } else if (action.type === 'COMPLETE') {
-    // Make a copy of current state
-    const updated = [...state]
-    // Find todo in arry
-    const updateIndex = updated.findIndex(todo => todo.id === action.id)
-    // Update completed for slected todo
-    updated[updateIndex].completed = action.isCompleted
-    updateLocalStorage(updated)
-    return updated;
   } else if (action.type === 'DELETE') {
     return state;
   } else {
