@@ -21,6 +21,7 @@ const Card = styled.div<cssProps>`
   border-bottom: solid 1px orange;
   padding: 10px;
 `;
+Card.displayName = 'TodoCard'
 
 const Header = styled.header`
   margin-left: 25px;
@@ -56,22 +57,32 @@ const UpIcon = styled(Up)`
   height: 15px;
   width: 15px;
 `
+UpIcon.displayName = 'UpIcon'
+
 const TopIcon = styled(Top)`
   height: 15px;
   width: 15px;
 `
+TopIcon.displayName = 'TopIcon'
+
 const BottomIcon = styled(Bottom)`
   height: 15px;
   width: 15px;
 `
+BottomIcon.displayName = 'BottomIcon'
+
 const DownIcon = styled(Down)`
   height: 15px;
   width: 15px;
 `
+DownIcon.displayName = 'DownIcon'
+
 const DeleteIcon = styled(Delete)`
     height: 10px;
     width: 10px;
 `
+DeleteIcon.displayName = 'DeleteIcon'
+
 const Button = styled.button`
   border: none;
   background: none;
@@ -155,7 +166,7 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
   return (
     <Card isCompleted={isCompleted}>
       <Header>
-        <Title isCompleted={isCompleted} contentEditable='true' onBlur={handleUpdate}>{task}</Title>
+        <Title isCompleted={isCompleted} contentEditable='true' suppressContentEditableWarning={true} onBlur={handleUpdate}>{task}</Title>
         <Date isCompleted={isCompleted}>{moment(date).format('llll')}</Date>
       </Header>
       <Completed type="checkbox" checked={isCompleted} onChange={(handleCompleted)

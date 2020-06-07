@@ -14,6 +14,7 @@ const Viewer = styled.div`
   height: 80%;
   margin-bottom: 25px;
   `;
+  Viewer.displayName = 'Viewer'
 
 const CardContainer = styled.div`
   height: 95%;
