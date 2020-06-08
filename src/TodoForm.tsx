@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { TodoDispatchContext } from "./TodoDispatchContext";
 import moment from "moment";
@@ -29,14 +29,15 @@ const Submit = styled.button`
 const Error = styled.div`
   margin-top: 10px;
 `;
+Error.displayName = 'TodoError'
 
 interface Props {
   dispatch: () => void;
 }
 
 const TodoForm = () => {
-  const [task, setTask] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
+  const [task, setTask] = React.useState<string>("");
+  const [error, setError] = React.useState<boolean>(false);
 
   const dispatch = useContext(TodoDispatchContext);
 
@@ -57,8 +58,9 @@ const TodoForm = () => {
 
   return (
     <FormContainer>
-      <Form onSubmit={handleSubmit}>
+      <Form id='todo-form' onSubmit={handleSubmit}>
         <TodoInput
+          id='todo-input'
           type="text"
           placeholder="Todo"
           value={task}
@@ -66,10 +68,10 @@ const TodoForm = () => {
             setTask(e.target.value)
           }
         />
-        <Submit type="submit" onClick={handleSubmit}>Submit</Submit>
+        <Submit id='todo-submit' type="submit" onClick={handleSubmit}>Submit</Submit>
       </Form>
       {error && (
-        <Error>
+        <Error id='todo-error'>
           Please enter a value for todo before submitting
         </Error>
       )}

@@ -14,6 +14,7 @@ const Viewer = styled.div`
   height: 80%;
   margin-bottom: 25px;
   `;
+  Viewer.displayName = 'Viewer'
 
 const CardContainer = styled.div`
   height: 95%;
@@ -55,10 +56,10 @@ const TodoViewer = () => {
     }
     // Send todos to create new cards anytime the list is updated
     setTodoCards(generateTodoList())
-  }, [view])
+  }, [view, state])
 
   return (
-    <Viewer>
+    <Viewer data-testid="todoViewer">
       <TodoSearch search={search} setSearch={setSearch} setView={setView}/>
       <CardContainer>
       {todoCards}

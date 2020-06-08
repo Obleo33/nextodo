@@ -1,9 +1,7 @@
-import React,{useContext, useState} from 'react'
+import React,{useContext} from 'react'
 import styled from "styled-components";
 import moment from "moment";
 import { TodoStateContext } from "./TodoStateContext";
-import { TodoDispatchContext } from "./TodoDispatchContext";
-
 import { ReactComponent as Delete } from './assets/delete.svg';
 
 const SearchContainer = styled.div`
@@ -48,7 +46,6 @@ type Todo = {
 
 const TodoSearch = (props: Props) => {
     const state = useContext(TodoStateContext);
-    const dispatch = useContext(TodoDispatchContext);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log('check');
