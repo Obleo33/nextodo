@@ -164,20 +164,20 @@ const TodoCard = ({ id, task, completed, date, index, fullArr }: Props) => {
   }
 
   return (
-    <Card isCompleted={isCompleted}>
+    <Card data-testid="todos" key={id} title='TodoCard' isCompleted={isCompleted}>
       <Header>
-        <Title isCompleted={isCompleted} contentEditable='true' suppressContentEditableWarning={true} onBlur={handleUpdate}>{task}</Title>
+        <Title data-testid="task" isCompleted={isCompleted} contentEditable="true" suppressContentEditableWarning={true} onBlur={handleUpdate}>{task}</Title>
         <Date isCompleted={isCompleted}>{moment(date).format('llll')}</Date>
       </Header>
       <Completed type="checkbox" checked={isCompleted} onChange={(handleCompleted)
       } />
       <Footer>
-        <Button onClick={handleUp}><UpIcon /></Button>
-        <Button onClick={handleTop}><TopIcon /></Button>
-        <Button onClick={handleBottom}><BottomIcon /></Button>
-        <Button onClick={handleDown}><DownIcon /></Button>
+        <Button data-testid="upButton" onClick={handleUp}><UpIcon /></Button>
+        <Button data-testid="topButton" onClick={handleTop}><TopIcon /></Button>
+        <Button data-testid="bottomButton" onClick={handleBottom}><BottomIcon /></Button>
+        <Button data-testid="downButton" onClick={handleDown}><DownIcon /></Button>
       </Footer>
-      <DeleteContainer><Button onClick={handleDelete}><DeleteIcon/></Button></DeleteContainer>
+      <DeleteContainer><Button data-testid="deleteButton" onClick={handleDelete}><DeleteIcon/></Button></DeleteContainer>
     </Card>
   );
 };

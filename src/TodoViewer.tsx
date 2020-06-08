@@ -56,10 +56,10 @@ const TodoViewer = () => {
     }
     // Send todos to create new cards anytime the list is updated
     setTodoCards(generateTodoList())
-  }, [view])
+  }, [view, state])
 
   return (
-    <Viewer>
+    <Viewer data-testid="todoViewer">
       <TodoSearch search={search} setSearch={setSearch} setView={setView}/>
       <CardContainer>
       {todoCards}
