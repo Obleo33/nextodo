@@ -17,7 +17,7 @@
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-test-renderer": "^16.13.1",
     "shortid": "^2.2.15",
     "styled-components": "^5.1.0",
